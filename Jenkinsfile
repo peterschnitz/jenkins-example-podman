@@ -19,7 +19,7 @@ pipeline {
     }
     stage('Start container') {
       steps {
-        sh 'podman-compose up -d --no-color --wait'
+        sh 'podman-compose up -d --no-color'
         sh 'podman-compose ps'
       }
     }
@@ -31,7 +31,7 @@ pipeline {
   }
   post {
     always {
-      sh 'podman-compose down --remove-orphans -v'
+      sh 'podman-compose down -v'
       sh 'podman-compose ps'
     }
   }
