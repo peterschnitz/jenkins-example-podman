@@ -6,7 +6,7 @@ pipeline {
         sh '''
           podman version
           podman info
-          podman compose version 
+          podman-compose version 
           curl --version
           jq --version
         '''
@@ -19,8 +19,8 @@ pipeline {
     }
     stage('Start container') {
       steps {
-        sh 'podman compose up -d --no-color --wait'
-        sh 'podman compose ps'
+        sh 'podman-compose up -d --no-color --wait'
+        sh 'podman-compose ps'
       }
     }
     stage('Run tests against the container') {
@@ -31,8 +31,8 @@ pipeline {
   }
   post {
     always {
-      sh 'podman compose down --remove-orphans -v'
-      sh 'podman compose ps'
+      sh 'podman-compose down --remove-orphans -v'
+      sh 'podman-compose ps'
     }
   }
 }
