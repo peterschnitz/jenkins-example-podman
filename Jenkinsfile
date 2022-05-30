@@ -12,6 +12,11 @@ pipeline {
         '''
       }
     }
+    stage('Login to private repos'){
+       steps {
+        sh 'podman login -u ${rep_user} -p ${rep_pass} repository.tffauto.no'
+       }
+    } 
     stage('Prune Podman data') {
       steps {
         sh 'podman system prune -a --volumes -f'
